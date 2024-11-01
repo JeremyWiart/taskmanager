@@ -3,9 +3,9 @@ const dayTab2 = ["Vendredi","Samedi","Dimanche"];
 
 function mainHtml(){
     let attMain = ["class","bg-blue-500 h-96 text-white border-2 border-black w-full"];
-    let attDivMain = ["class", "flex justify-center flex-wrap mx-auto text-xl font-bold mt-3 pt-2 pb-2"];
-    let attSection = ["class","w-full border-2 border-black h-42 px-2 py-2"];
-    let attDivSection = ["class","border-4 border-red-600 h-24 text-wrap"];
+    let attDivMain = ["class", "flex flex-wrap justify-center mx-auto text-xl font-bold mt-3 pt-2 pb-2"];
+    let attSection = ["class","flex flex-wrap justify-center border-2 border-black w-96 h-42 py-2 mb-24"];
+    let attDivSection = ["class","border-4 border-red-600 w-full h-24 text-wrap"];
     let attTableau = ["class","h-full w-full"];
     let attThTableau = ["class","border-2 border-black"];
     let attTdTableau = ["class","border-2 border-white-600"];
