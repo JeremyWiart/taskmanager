@@ -8,7 +8,9 @@ function mainHtml(){
     let attDivSection = ["class","border-4 border-red-600 w-full h-24 text-wrap"];
     let attTableau = ["class","h-full w-full"];
     let attThTableau = ["class","border-2 border-black"];
-    let attTdTableau = ["class","border-2 border-white-600"];
+    let attTdTableau = ["class","border-2 border-white-600 w-42"];
+    let attSectionBottom = ["class", "bg-grey-800 text-white border-2 border-black py-2"];
+    let attSectionDivBottom = ["class", "container mx-auto flex justify-center items-center border-2 border-red-600 rounded-3xl bg-blue-400 h-12"];
 
  let main =       document.createElement("main");
  let divMain =    document.createElement("div");
@@ -49,6 +51,14 @@ function mainHtml(){
 
   }
 
+ 
+
+ 
+   let sectionBottom = document.createElement("section")
+       sectionBottom.setAttribute(attSectionBottom[0],attSectionBottom[1])
+   let sectionDivBottom = document.createElement("div")
+       sectionDivBottom.setAttribute(attSectionDivBottom[0],attSectionDivBottom[1])
+   
 
           main.setAttribute(attMain[0],attMain[1]);
        divMain.setAttribute(attDivMain[0],attDivMain[1]);
@@ -76,10 +86,11 @@ function mainHtml(){
         divSection2.appendChild(tableau2);
         section2.appendChild(divSection2);
         divMain.appendChild(section2);
-
-
         main.appendChild(divMain);
+        sectionBottom.appendChild(sectionDivBottom)
+        
         body.appendChild(main);
+        body.appendChild(sectionBottom)
 console.log(body);
 }mainHtml();
 
