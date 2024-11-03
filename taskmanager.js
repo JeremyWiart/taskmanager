@@ -7,7 +7,7 @@ function mainHtml(){
     let attMain = ["class","bg-blue-500 h-96 text-white border-2 border-black w-full"];
     let attDivMain = ["class", "flex flex-wrap justify-center mx-auto text-xl font-bold mt-3 pt-2 pb-2"];
     let attSection = ["class","flex flex-wrap justify-center border-2 border-black py-2 mb-24"];
-    let attDivSection = ["class","border-4 border-red-600 w-full text-wrap"];
+    let attDivSection = ["class","border-4 w-full text-wrap"];
     let attTableau = ["class","h-full w-full"];
     let attThTableau = ["class","border-2 border-black"];
     let attTdTableau = ["class","border-2 border-white-600 w-42 text-center"];
