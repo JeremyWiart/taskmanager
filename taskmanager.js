@@ -1,13 +1,13 @@
-const dayTab1 = ["Lundi","Mardi","Mercredi","Jeudi"];
-const dayTab2 = ["Vendredi","Samedi","Dimanche"];
+const dayTab1 = ["Dimanche","Lund","Mardi","Mercredi"];
+const dayTab2 = ["Jeudi","Vendredi","Samedi"];
 
 function mainHtml(){
 
 //--------------------------------Table Tailwind Class---------------------------------------------------------------------//
     let attMain = ["class","bg-blue-500 h-96 text-white border-2 border-black w-full"];
     let attDivMain = ["class", "flex flex-wrap justify-center mx-auto text-xl font-bold mt-3 pt-2 pb-2"];
-    let attSection = ["class","flex flex-wrap justify-center border-2 border-black w-96 h-42 py-2 mb-24"];
-    let attDivSection = ["class","border-4 border-red-600 w-full h-24 text-wrap"];
+    let attSection = ["class","flex flex-wrap justify-center border-2 border-black py-2 mb-24"];
+    let attDivSection = ["class","border-4 border-red-600 w-full text-wrap"];
     let attTableau = ["class","h-full w-full"];
     let attThTableau = ["class","border-2 border-black"];
     let attTdTableau = ["class","border-2 border-white-600 w-42"];
@@ -53,10 +53,10 @@ function mainHtml(){
  //-------------------------------------------------------------------//
 
  //---------------Create Element First Table Setattribut and appendChild------------//
- for(i=1;i<=4;i++){
+ for(i=0;i<=3;i++){
         let thTrTableau = document.createElement("th");
         let tdTableau = document.createElement("td");
-        let contentTh = document.createTextNode(dayTab1[i-1]);
+        let contentTh = document.createTextNode(dayTab1[i]);
             tdTableau.setAttribute("id","td"+i);
             tdTableau.setAttribute(attTdTableau[0],attTdTableau[1]);
             thTrTableau.setAttribute(attThTableau[0],attThTableau[1]);
@@ -68,12 +68,12 @@ function mainHtml(){
 //-------------------------------------------------------------------//
 
 //-----------Create Element second table Setattribut and appendChild-----//
-    let j = 5;
-    for(i=0;i<=2;i++){
+    let j = 0;
+    for(i=4;i<=6;i++){
       let thTrTableau2 = document.createElement("th");
       let tdTableau2 = document.createElement("td");
-      let contentTh2 = document.createTextNode(dayTab2[i]);
-            tdTableau2.setAttribute("id","td"+(j+i));
+      let contentTh2 = document.createTextNode(dayTab2[(j++)]);
+            tdTableau2.setAttribute("id","td"+i);
           tdTableau2.setAttribute(attTdTableau[0],attTdTableau[1]);
           thTrTableau2.setAttribute(attThTableau[0],attThTableau[1]);
           thTrTableau2.appendChild(contentTh2);
@@ -91,6 +91,7 @@ function mainHtml(){
    let inputDate = document.createElement("input");
    let inputArea = document.createElement("textarea");
    let inputButt = document.createElement("input");
+ 
 //------------------------------------------------------------------------------------//
 
   
@@ -147,6 +148,7 @@ function mainHtml(){
         sectionDivBottom.appendChild(inputDate);
         sectionDivBottom.appendChild(inputArea);
         sectionDivBottom.appendChild(inputButt);
+        
         sectionBottom.appendChild(sectionDivBottom);
         
         body.appendChild(main);
@@ -156,15 +158,15 @@ console.log(body);
 }mainHtml();
 
 
-const start = new Date();
+/*const start = new Date();
  let years= start.getFullYear();
  let month = start.getMonth();
  let day = start.getDate();
-let fullDate = years+"-"+ (month+1)+"-0"+day;
-//console.log(fullDate);
+let fullDate = years+"-"+ (month+1)+"-0"+day;*/
 
 
-    document.getElementById("buttInput").addEventListener("click", function() {
+
+   /* document.getElementById("buttInput").addEventListener("click", function() {
         let dayOfWeek = document.getSelection("dateInput").anchorNode.firstChild.valueAsDate.getDay();
         let date = document.getElementById("dateInput");
         let task = document.getElementById("areaInput");
@@ -185,11 +187,11 @@ let fullDate = years+"-"+ (month+1)+"-0"+day;
   
                 }
             
-     })
+     })*/
 
 
     
-   let allDate  = window.localStorage.getItem("jour-1");
+   /*let allDate  = window.localStorage.getItem("jour-1");
    let allTask  = window.localStorage.getItem("tachedu-1");
     if (allDate === null ) {
         console.log("error");
@@ -204,6 +206,71 @@ let fullDate = years+"-"+ (month+1)+"-0"+day;
             caseTab.appendChild(textTask);
             console.log(caseTab);
         }
+    }*/
+
+    function initTaskManager() {
+        let tasks = JSON.parse(localStorage.getItem('tache')) || {};
+    
+        function createTaskElement(task, day, index) {
+            let taskElement = document.createElement('div');
+            taskElement.className = 'tache-item';
+            
+            // Crée le texte de la tâche
+            let taskText = document.createElement('span');
+            taskText.textContent = `${task.date} - ${task.description}`;
+            
+            // Crée le bouton de suppression
+            let deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Supprimer';
+            deleteButton.className = 'delete-button';
+            deleteButton.addEventListener('click', () => deleteTask(day, index)); // Ajoute l'événement de suppression
+            
+            taskElement.appendChild(taskText);
+            taskElement.appendChild(deleteButton);
+            
+            return taskElement;
+        }
+    
+        function saveTask(day, task) {
+            if (!tasks[day]) tasks[day] = [];
+            tasks[day].push(task);
+            localStorage.setItem('tache', JSON.stringify(tasks));
+        }
+    
+        function loadTasks(day) {
+            let dayColumn = document.getElementById(`td${day}`);
+            dayColumn.innerHTML = ''; // Vide la colonne avant de la re-remplir
+    
+            // Si des tâches existent pour le jour donné, on les affiche
+            if (tasks[day]) {
+                tasks[day].forEach((task, index) => {
+                    let taskElement = createTaskElement(task, day, index);
+                    dayColumn.appendChild(taskElement);
+                });
+            }
+        }
+
+         function deleteTask(day, index) {
+            if (tasks[day]) {
+                tasks[day].splice(index, 1); // Supprime la tâche à l'index donné
+                localStorage.setItem('tache', JSON.stringify(tasks)); // Sauvegarde les modifications
+                loadTasks(day); // Recharge l'affichage des tâches pour ce jour
+            }
+        }
+
+
+        document.getElementById("buttInput").addEventListener("click", () => {
+            let date = document.getElementById("dateInput").value;
+            let description = document.getElementById("areaInput").value;
+            let day = new Date(date).getDay();
+            
+            if (date && description) {
+                saveTask(day, { date, description });
+                
+            }
+        });
+    
+        Object.keys(tasks).forEach(day => loadTasks(day));
     }
-
-
+    
+    initTaskManager();
