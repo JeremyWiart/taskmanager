@@ -154,7 +154,12 @@ console.log(body);
 }mainHtml();
 
 
-
+const start = new Date();
+ let years= start.getFullYear();
+ let month = start.getMonth();
+ let day = start.getDate();
+let fullDate = years+"-"+ (month+1)+"-0"+day;
+//console.log(fullDate);
 
 
     document.getElementById("buttInput").addEventListener("click", function() {
@@ -164,12 +169,26 @@ console.log(body);
         console.log(dayOfWeek);
         console.log(date.value);
         console.log(task.value);
-        window.localStorage.setItem("jours"+dayOfWeek, date.value);
-        window.localStorage.setItem("Tâchedu"+date.value, task.value);
+
+            let dateGet = window.localStorage.getItem("jour-"+dayOfWeek);
+            let taskGet = window.localStorage.getItem("tachejour-"+dayOfWeek);
+                if(dateGet === null){
+                    
+                    window.localStorage.setItem("jours-"+dayOfWeek, date.value);
+                    window.localStorage.setItem("tachedu-"+dayOfWeek, task.value);
+                }else{
+                    window.localStorage.setItem("jour-"+dayOfWeek, dateGet+"/"+date.value);
+                    window.localStorage.setItem("tachedu-"+dayOfWeek, taskGet+"/"+task.value);
+                }
      })
 
 
-/*const start = new Date();
- let datee= start.getMonths();
-   console.log(datee);*/
+    
+   /* let dateGet = window.localStorage.getItem("jours-"+fullDate);
+    if (dateGet === null) {
+        console.log("Key empty");
+    }else{
+        console.log(dateGet);
+    }*/
+
 
