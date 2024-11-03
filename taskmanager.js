@@ -10,7 +10,7 @@ function mainHtml(){
     let attDivSection = ["class","border-4 border-red-600 w-full text-wrap"];
     let attTableau = ["class","h-full w-full"];
     let attThTableau = ["class","border-2 border-black"];
-    let attTdTableau = ["class","border-2 border-white-600 w-42"];
+    let attTdTableau = ["class","border-2 border-white-600 w-42 text-center"];
     
     let attSectionBottom = ["class", "bg-grey-800 border-2 border-black py-2"];
     let attSectionDivBottom = ["class", "container mx-auto flex justify-center flex-col items-center border-2 border-red-600 rounded-3xl bg-blue-400"];
@@ -158,74 +158,34 @@ console.log(body);
 }mainHtml();
 
 
-/*const start = new Date();
- let years= start.getFullYear();
- let month = start.getMonth();
- let day = start.getDate();
-let fullDate = years+"-"+ (month+1)+"-0"+day;*/
-
-
-
-   /* document.getElementById("buttInput").addEventListener("click", function() {
-        let dayOfWeek = document.getSelection("dateInput").anchorNode.firstChild.valueAsDate.getDay();
-        let date = document.getElementById("dateInput");
-        let task = document.getElementById("areaInput");
-        console.log(dayOfWeek);
-        console.log(date.value);
-        console.log(task.value);
-
-            let dateGet = window.localStorage.getItem("jour-"+dayOfWeek);
-            let taskGet = window.localStorage.getItem("tachedu-"+dayOfWeek);
-            
-                if(dateGet === null){
-                    
-                    window.localStorage.setItem("jour-"+dayOfWeek, date.value);
-                    window.localStorage.setItem("tachedu-"+dayOfWeek, task.value);
-                }else{
-                    window.localStorage.setItem("jour-"+dayOfWeek, dateGet+"/"+date.value); 
-                    window.localStorage.setItem("tachedu-"+dayOfWeek, taskGet+"/"+task.value);
-  
-                }
-            
-     })*/
-
 
     
-   /*let allDate  = window.localStorage.getItem("jour-1");
-   let allTask  = window.localStorage.getItem("tachedu-1");
-    if (allDate === null ) {
-        console.log("error");
-    }else{
-        let splitDate = allDate.split("/");
-        let splitTask = allTask.split("/");
-        for(let i = 0; i<= splitDate.length -1;i++){
-            let caseTab = document.getElementById("td1");
-            let textDate = document.createTextNode(splitDate[i]);
-            let textTask = document.createTextNode(splitTask[i]);
-            caseTab.appendChild(textDate);
-            caseTab.appendChild(textTask);
-            console.log(caseTab);
-        }
-    }*/
+ 
 
     function initTaskManager() {
         let tasks = JSON.parse(localStorage.getItem('tache')) || {};
     
         function createTaskElement(task, day, index) {
             let taskElement = document.createElement('div');
+                taskElement.setAttribute("id","divTask");
             taskElement.className = 'tache-item';
             
             // Crée le texte de la tâche
-            let taskText = document.createElement('span');
-            taskText.textContent = `${task.date} - ${task.description}`;
+            let taskUl = document.createElement('ul');
+            let taskDateLi = document.createElement('li');
+            let taskLi = document.createElement('li');
+            taskDateLi.textContent = `${task.date}`; 
+            taskLi.textContent = `${task.description}`;
             
             // Crée le bouton de suppression
             let deleteButton = document.createElement('button');
             deleteButton.textContent = 'Supprimer';
             deleteButton.className = 'delete-button';
             deleteButton.addEventListener('click', () => deleteTask(day, index)); // Ajoute l'événement de suppression
+            taskUl.appendChild(taskDateLi);
+            taskUl.appendChild(taskLi);
             
-            taskElement.appendChild(taskText);
+            taskElement.appendChild(taskUl);
             taskElement.appendChild(deleteButton);
             
             return taskElement;
