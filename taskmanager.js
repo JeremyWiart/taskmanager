@@ -11,6 +11,7 @@ function mainHtml(){
     let attTableau = ["class","h-full w-full"];
     let attThTableau = ["class","border-2 border-black"];
     let attTdTableau = ["class","border-2 border-white-600 w-42"];
+    
     let attSectionBottom = ["class", "bg-grey-800 border-2 border-black py-2"];
     let attSectionDivBottom = ["class", "container mx-auto flex justify-center flex-col items-center border-2 border-red-600 rounded-3xl bg-blue-400"];
     let attIdSDB = ["id", "sectionDB"];
@@ -52,11 +53,11 @@ function mainHtml(){
  //-------------------------------------------------------------------//
 
  //---------------Create Element First Table Setattribut and appendChild------------//
- for(i=0;i<=3;i++){
+ for(i=1;i<=4;i++){
         let thTrTableau = document.createElement("th");
         let tdTableau = document.createElement("td");
-        let contentTh = document.createTextNode(dayTab1[i]);
-
+        let contentTh = document.createTextNode(dayTab1[i-1]);
+            tdTableau.setAttribute("id","td"+i);
             tdTableau.setAttribute(attTdTableau[0],attTdTableau[1]);
             thTrTableau.setAttribute(attThTableau[0],attThTableau[1]);
             thTrTableau.appendChild(contentTh);
@@ -67,11 +68,12 @@ function mainHtml(){
 //-------------------------------------------------------------------//
 
 //-----------Create Element second table Setattribut and appendChild-----//
+    let j = 5;
     for(i=0;i<=2;i++){
       let thTrTableau2 = document.createElement("th");
       let tdTableau2 = document.createElement("td");
       let contentTh2 = document.createTextNode(dayTab2[i]);
-
+            tdTableau2.setAttribute("id","td"+(j+i));
           tdTableau2.setAttribute(attTdTableau[0],attTdTableau[1]);
           thTrTableau2.setAttribute(attThTableau[0],attThTableau[1]);
           thTrTableau2.appendChild(contentTh2);
@@ -171,24 +173,37 @@ let fullDate = years+"-"+ (month+1)+"-0"+day;
         console.log(task.value);
 
             let dateGet = window.localStorage.getItem("jour-"+dayOfWeek);
-            let taskGet = window.localStorage.getItem("tachejour-"+dayOfWeek);
+            let taskGet = window.localStorage.getItem("tachedu-"+dayOfWeek);
+            
                 if(dateGet === null){
                     
-                    window.localStorage.setItem("jours-"+dayOfWeek, date.value);
+                    window.localStorage.setItem("jour-"+dayOfWeek, date.value);
                     window.localStorage.setItem("tachedu-"+dayOfWeek, task.value);
                 }else{
-                    window.localStorage.setItem("jour-"+dayOfWeek, dateGet+"/"+date.value);
+                    window.localStorage.setItem("jour-"+dayOfWeek, dateGet+"/"+date.value); 
                     window.localStorage.setItem("tachedu-"+dayOfWeek, taskGet+"/"+task.value);
+  
                 }
+            
      })
 
 
     
-   /* let dateGet = window.localStorage.getItem("jours-"+fullDate);
-    if (dateGet === null) {
-        console.log("Key empty");
+   let allDate  = window.localStorage.getItem("jour-1");
+   let allTask  = window.localStorage.getItem("tachedu-1");
+    if (allDate === null ) {
+        console.log("error");
     }else{
-        console.log(dateGet);
-    }*/
+        let splitDate = allDate.split("/");
+        let splitTask = allTask.split("/");
+        for(let i = 0; i<= splitDate.length -1;i++){
+            let caseTab = document.getElementById("td1");
+            let textDate = document.createTextNode(splitDate[i]);
+            let textTask = document.createTextNode(splitTask[i]);
+            caseTab.appendChild(textDate);
+            caseTab.appendChild(textTask);
+            console.log(caseTab);
+        }
+    }
 
 
